@@ -4,7 +4,7 @@
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
-from db import db
+#from db import db
 
 from security import authenticate,identity
 from resources.user import UserRegistar
@@ -18,10 +18,6 @@ app.secret_key='jose'
 api= Api(app)
 
 
-#flask decorator
-@app.before_first_request  #this decorator of flask is going to affect the method below it and it's going to run that method before the first request into this app
-def create_tables():  #it only creates the tables it sees so the import of those things or Models containing tables is important
-    db.create_all()   #before the first request runs it's going to run this method and that is going to create this file there data.db and it's gonna create all the tables in the file unless they exist already
 
 
 jwt=JWT(app,authenticate,identity) #endpoint is /auth
@@ -38,6 +34,7 @@ api.add_resource(StoreList,'/stores')
 #Python assigns a special name to the file we run and that name is always __main__
 #also when we import a file or import something from that file then that file is alwyays run first 
 #only the file that you run is __main__
-if __name__ == '__main__':
+'''if __name__ == '__main__':
     db.init_app(app)
     app.run(port=5000,debug=True)
+'''
